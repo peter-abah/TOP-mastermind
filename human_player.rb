@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HumanPlayer
   def initialize
     puts 'Enter your name'
@@ -11,7 +13,7 @@ class HumanPlayer
       code = gets
       break if valid_code?(code)
     end
-    code  
+    code
   end
 
   def guess
