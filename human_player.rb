@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class HumanPlayer
+  attr_reader :name
+  
   def initialize
     puts 'Enter your name'
     @name = gets
