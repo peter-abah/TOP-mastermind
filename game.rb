@@ -1,6 +1,9 @@
 # frozen_string_literal: true
+require './code_compare'
 
 class Game
+  include CodeCompare
+  
   def initialize(code_maker, code_breaker)
     @code_maker = code_maker
     @code_breaker = code_breaker
@@ -21,30 +24,11 @@ class Game
     puts end_message
   end
 
-  private
-  
-  def compare(code, guess)
-    code = code.dup
-    correct_guesses = 0
-    correct_colors = 0
-
-    0.upto(3) do |i|
-      if code[i] == guess[i]
-        correct_colors += 1
-        code[i] = '_'
-      elsif n = code.index(guess[i]) # the assignment is not a mistake
-        correct_guesses += 1
-        code[n] = '_'
-      end
-    end
-    [correct_colors, correct_guesses]
-  end
-
   def game_message(guess)
-    "#{@code_breaker.name} guessed #{guess}\n" +
-      "Correct guesses: #{@correct_guesses}\n" +
+    "#{@code_breaker.name} guessed #{guess}\n" \
+      "Correct guesses: #{@correct_guesses}\n" \
       "Correct colors guessed: #{@correct_colors}"
-      end
+  end
 
   def end_message
     message = ''
@@ -54,6 +38,6 @@ class Game
       message += "#{@code_breaker.name}, You lost\n"
     end
 
-    message += "Correct code is #{@code}"
+    message + "Correct code is #{@code}"
   end
 end
