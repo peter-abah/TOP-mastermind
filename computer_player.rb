@@ -7,6 +7,7 @@ class ComputerPlayer < Player
   def initialize
     super
     @name = 'Computer'
+    @possible_codes = gen_possible_codes
     @correct_guesses = 0
     @correct_colors = 0
   end
@@ -24,5 +25,15 @@ class ComputerPlayer < Player
     code = ''
     4.times { code += rand(1..6).to_s }
     code
+  end
+
+  private
+
+  def gen_possible_codes
+    codes = []
+    0.upto(6666) do |n|
+      codes.push(n.to_s.rjust(4, '0'))
+    end
+    codes
   end
 end
