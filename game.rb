@@ -3,7 +3,7 @@ require './code_compare'
 
 class Game
   include CodeCompare
-  
+
   def initialize(code_maker, code_breaker)
     @code_maker = code_maker
     @code_breaker = code_breaker
@@ -15,7 +15,7 @@ class Game
   def start
     8.times do
       guess = @code_breaker.guess
-      @correct_guesses, @correct_colors = compare(@code, guess)
+      @correct_guesses, @correct_colors = compare_code(@code, guess)
       puts game_message(guess)
       @code_breaker.receive_info(@correct_guesses, @correct_colors)
       break if @correct_guesses == 4

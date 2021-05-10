@@ -11,18 +11,12 @@ def main
   Game.new(code_maker, code_breaker).start
 end
 
-def test
-  game = Game.new(ComputerPlayer.new, ComputerPlayer.new)
-  p game.compare('1234', '1214')
-end
-
 def get_choice
   choice = ''
   loop do
     puts 'Code Breaker[b] or Code Maker [m]'
     choice = gets.downcase.chomp
-    p choice
-    break if %w[b a].include?(choice)
+    break if %w[b m].include?(choice)
   end
   choice
 end
