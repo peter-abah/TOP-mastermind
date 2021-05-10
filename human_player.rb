@@ -1,18 +1,21 @@
 # frozen_string_literal: true
 
-class HumanPlayer
+require './player'
+
+class HumanPlayer < Player
   attr_reader :name
-  
+
   def initialize
+    super
     puts 'Enter your name'
-    @name = gets
+    @name = gets.chomp
   end
 
   def make_code
     code = 0
     loop do
       puts 'Enter valid code'
-      code = gets
+      code = gets.chomp
       break if valid_code?(code)
     end
     code
@@ -22,9 +25,10 @@ class HumanPlayer
     guess = 0
     loop do
       puts 'Guess a valid code'
-      guess = gets
+      guess = gets.chomp
       break if valid_code?(guess)
     end
+    guess
   end
 
   private

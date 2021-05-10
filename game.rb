@@ -12,9 +12,9 @@ class Game
   def start
     8.times do
       guess = @code_breaker.guess
-      correct_guesses, correct_colors = compare(@code, guess)
+      @correct_guesses, @correct_colors = compare(@code, guess)
       puts game_message(guess)
-      code_breaker.receive_info(@correct_guesses, @correct_colors)
+      @code_breaker.receive_info(@correct_guesses, @correct_colors)
       break if @correct_guesses == 4
     end
 
@@ -22,8 +22,9 @@ class Game
   end
 
   private
-
+  
   def compare(code, guess)
+    code = code.dup
     correct_guesses = 0
     correct_colors = 0
 
@@ -31,8 +32,9 @@ class Game
       if code[i] == guess[i]
         correct_colors += 1
         code[i] = '_'
-      elsif code.index(guess[i])
-        correct_colors += 1
+      elsif n = code.index(guess[i]) # the assignment is not a mistake
+        correct_guesses += 1
+        code[n] = '_'
       end
     end
     [correct_colors, correct_guesses]
@@ -40,9 +42,9 @@ class Game
 
   def game_message(guess)
     "#{@code_breaker.name} guessed #{guess}\n" +
-    "Correct guesses: #{@correct_guesses}" +
-    "Correct colors guessed: #{@correct_colors}"
-  end
+      "Correct guesses: #{@correct_guesses}\n" +
+      "Correct colors guessed: #{@correct_colors}"
+      end
 
   def end_message
     message = ''
@@ -51,7 +53,7 @@ class Game
     else
       message += "#{@code_breaker.name}, You lost\n"
     end
-    
+
     message += "Correct code is #{@code}"
   end
 end
